@@ -58,14 +58,17 @@ export const createProduct = async (req, res, next) => {
         req.file.filename
       }`;
     }
-
+    let isFeatured = false;
+    if (featured) {
+      isFeatured = true;
+    }
     const item = await Product.create({
       name,
       image: finalImageURL,
       price,
       description,
       stock,
-      featured,
+      featured: isFeatured,
     });
     res.status(201).json(item);
   } catch (err) {
